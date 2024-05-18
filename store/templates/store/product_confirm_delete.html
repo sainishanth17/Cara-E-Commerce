@@ -1,0 +1,27 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="section-p1"> 
+        {% if user.account.warnings >=   3 %}
+        <div>
+            <h1 style="color: red;">You have been banned!</h1> 
+            <h3 style="color: red;">You can't add new Products!</h3>
+        </div>
+        {% else %}
+            <h2>Delete a Product! </h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h3>Are you sure you want  to delete the product? {{ object.title }}"</h3>
+                <button style="color: red; height:50px; width:50px;" type="submit"> Yes </button>
+                <br>
+                <br>
+                <a href="{% url 'seller_listed_items' %}" style="color: green; height:50px; width:50px;"> <h2 style="color: green;" >Go back<h2></a> 
+            </form>
+            <div>
+                {{form.errors}}
+            </div>
+        {% endif %}
+    </div>
+{% endblock content %}

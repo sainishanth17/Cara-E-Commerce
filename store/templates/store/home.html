@@ -1,0 +1,80 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block content %}
+
+{% if user.is_authenticated %}
+    {% if personalized_products %}
+    <h1 class="section-p1"> Some Products You may Like: </h1>
+    <div class="cards">
+    {% for item in personalized_products %}
+        <div class="card"> 
+            <a href="{% url 'productview' item.category.slug item.slug %}" class="cat_link">
+                <div>
+                    <img class="image" src="{{ item.product_image.url }}" alt="product-image">
+                </div>
+                <div>
+                    <h4>{{ item.name }}</h4>
+                </div>
+                <div>
+                    <span>Original:$ {{item.original_price}}<span>
+                    <span>Bidding:$ {{item.bidding_price}}<span>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+    
+{% else %}
+    <section class="slid_container">
+        <div class="slider-wrapper">
+            <div class="slider">
+                <img id="slide-1" src="https://images.unsplash.com/photo-1544441893-675973e31985?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="3D rendering of an imaginary green planet in space" />
+                
+                <img id="slide-2" src="https://images.unsplash.com/photo-1612423284934-2850a4ea6b0f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="3D rendering of an imaginary orange planet in space" />
+                <img id="slide-3" src="https://images.unsplash.com/photo-1656077217715-bdaeb06bd01f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1200&q=80" alt="3D rendering of an imaginary blue planet in space" />
+            </div>
+            <div class="slider-nav">
+                <a href="#slide-1"></a>
+                <a href="#slide-2"></a>
+                <a href="#slide-3"></a>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+<div class="section-p1"><h2>Our Service</h2></div>
+<section id="feature" class="section-p1">
+    <div class="fe-box">
+        <img src="{% static 'store/media/features/f1.png' %}" alt="free shipping">
+        <h6>Free Shipping</h6>
+    </div>
+    <div class="fe-box">
+        <img src="{% static 'store/media/features/f2.png' %}" alt="free shipping">
+        <h6>Online Order</h6>
+    </div>
+    <div class="fe-box">
+        <img src="{% static 'store/media/features/f3.png' %}" alt="free shipping">
+        <h6>Save Money</h6>
+    </div>
+    <div class="fe-box">
+        <img src="{% static 'store/media/features/f4.png' %}" alt="free shipping">
+        <h6>Propotions</h6>
+    </div>
+    <div class="fe-box">
+        <img src="{% static 'store/media/features/f5.png' %}" alt="free shipping">
+        <h6>Happy Sell</h6>
+    </div>
+    <div class="fe-box">
+        <img src="{% static 'store/media/features/f6.png' %}" alt="free shipping">
+        <h6>24/7 Support</h6>
+    </div>
+</section>
+
+<section id="banner" class="section-m1" style="background: url('{% static 'store/media/b2.jpg' %}')">
+    <h4>Repair Service</h4>
+    <h2>Up to <span>70% off</span> - All t-Shirts & Accesories</h2>
+    <a style="text-decoration:none;" href="{% url 'store-categories' %}"><button class="normal">Explore More</button></a>
+</section>
+
+{% endblock content %}

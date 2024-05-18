@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- Title & Favicon-->
+        <title>Mini-Ebay</title>
+        <link rel="icon" type="image/x-icon" href="https://www.ccpc.ie/consumers/wp-content/uploads/sites/2/2020/11/shopping-graphic.png">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css"/> <!-- Font awesome-->
+        
+        <link href='https://css.gg/shopping-bag.css' rel='stylesheet'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{% static 'store/store_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/category_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/products_details_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/cart_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/account_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/checkOut_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/search_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/review_modal.css' %}">
+        <link rel="stylesheet" href="{% static 'store/buyer_account_styles.css' %}">
+        <link rel="stylesheet" href="{% static 'store/seller_account.css' %}">
+        <link rel="stylesheet" href="{% static 'store/buyer_deposit_styles.css' %}">
+        
+        {% comment "Alertify JS" %}{% endcomment %}        
+        <!-- CSS -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+        <!-- Default theme -->
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+
+    </head>
+    <body>
+        <section id="header">
+            <div>
+                <a href="{% url 'store-home' %}"><img src="{% static 'store/media/logo.png' %}" class="logo"></a>
+                <a href="{% url 'search' %}" style="text-decoration: none" ><i class="fas fa-search"></i> Search</a>
+            </div>
+            <div>
+                <ul id="navbar">
+                    <li> Hello {{ user.username }} </li>
+                    <li><a href="{% url 'store-home' %}"  class="{% if request.resolver_match.url_name == 'store-home' %}active{% endif %}">Home</a></li>
+                    <li><a href="{% url 'store-categories' %}" class="{% if request.resolver_match.url_name == 'store-categories' %}active{% endif %}">Shop</a></li>
+                    <li><a href="#">Contact</a></li>
+
+                    <!-- For Conditional LOGIN View -->
+                    {% if user.is_authenticated %}
+                    <li><a href=" {% url 'buyer_account' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Buyer Account</a></li>
+                    <li><a href=" {% url 'seller_account' %}" class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">Seller Account</a></li>
+                    <li><a href="{% url 'logout' %}">Logout <i class="fas fa-sign-out-alt"></i></a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}" class="{% if request.resolver_match.url_name == 'login' %}active{% endif %}"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
+                    <li><a href="{% url 'register' %}" class="{% if request.resolver_match.url_name == 'register' %}active{% endif %}">Register </a></li>
+                    {% endif %}
+                    <li><a href="{% url 'cart' %}"><i class="gg-shopping-bag {% if request.resolver_match.url_name == 'cart' %}active{% endif %}"></i></a></li> <!-- ADDING THE ICON-->
+                </ul>
+            </div>
+        </section>
+        {% block content %}
+        
+        {% endblock content %}
+        
+        <!-- Jquery-->
+        <script src="{% static 'store/js/jquery-3.6.1.min.js' %}"></script>
+        <!-- Custom JS -->
+        <script src="{% static 'store/js/app.js' %}" async defer></script>
+        <!-- Alertify JS -->
+        <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+        <script>
+            alertify.set('notifier','position', 'top-left');
+            {% for msg in messages %}
+                alertify.success('{{ msg }}');
+            {% endfor %}
+        </script> 
+
+    </body>
+</html>

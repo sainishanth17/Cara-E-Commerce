@@ -1,0 +1,46 @@
+{% extends "store/base.html" %}
+{% load static %}
+{% block content %}
+    <div class="section-p1">
+        <p><a href="{% url 'manage_bids' %}">Manage Bids</a>/<a href="{% url 'manage_product_bid' product.slug %}">seller_bid_product</a><p> 
+        <h2>Seller- Manage Bids</h2>
+        <div class="buyer_account_page">
+            <div class="buyer_profile">
+                <div class="buyer_profile_detail">
+                    <img src="{{ user.account.image.url }}"> 
+                    <h2> {{ user.username }}</h2>
+                    <p> {{ user.email }} </p>
+                </div>
+                <br>
+                <ul class="buyer_account_options">
+                    <li><a href="{% url 'seller_account' %}"> Account <span> > </span></a></li>
+                    <li><a href="{% url 'seller_listed_items' %}"> My Listed Itmes<span> > </span></a></li>
+                    <li class="profile_active"><a href="{% url 'manage_bids' %}" class=""> Manage Bids  <span> > </span></a></li>
+                    <li><a href="{% url 'seller_sold_items' %}" class="">
+                    <li><a href="{% url 'seller_sold_items' %}" class=""> Sold Itmes History  <span> > </span></a></li>
+                    <li><a href="{% url 'seller_messages' %}" class=""> Seller Messages  <span> > </span></a></li>
+                </ul>
+            </div>
+            <div class="buyer_account_detail">
+                {% if seller_bid_product_items %}
+                    {% for seller_bid_product_item in seller_bid_product_items %}
+                    <div class="bid_prod_info">
+                        {% csrf_token %}
+                        <input  class="bid_id_num" type="hidden" value="{{seller_bid_product_item.id}}">
+                        <p>Product Name: {{ seller_bid_product_item.product }}</p>
+                        <p> Bidder: {{ seller_bid_product_item.bidder }}</p>
+                        <p>Bid starting Price: {{ seller_bid_product_item.product.bid_starting_price }}</p>
+                        <p>This bidding Price: {{ seller_bid_product_item.bidding_price }}</p>
+                        <p>Bid Quantity: {{ seller_bid_product_item.quantity }}</p>
+                        <button class="bid_confirm_btn" value={{seller_bid_product_item.id}}>Confirm Bid</button>
+                        <br> 
+                        <br>
+                    </div> 
+                    {% endfor %}
+                {% else %}
+                    <p>No Available bids for this product! Or No bids has been placed for this product.</p>
+                {% endif %}
+            </div>
+    </div>
+{% endblock content%}
+
