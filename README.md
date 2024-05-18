@@ -2,7 +2,7 @@
 <img src="https://user-images.githubusercontent.com/52084764/203933545-c9dfdf72-c5ba-44d6-8ec3-76c1e9452b17.png" height=780px width=710px>
 
 
-# An Electronic Trading System aka (Mini-Ebay)
+# An Electronic Trading System
 # Technologies Used
 The Mini-Ebay project was built using a variety of technologies to create a full-stack application. The technologies used are:
 
